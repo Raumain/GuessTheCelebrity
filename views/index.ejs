@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="client.js"></script>
+    <title>Guess The Celebrity !</title>
+</head>
+<body>
+    <main>
+        <div class="lobby-container">
+            <div class="join-container">
+                <h1>Rejoindre une partie</h1>
+                <form action="/lobby" id="join-form" method="get">
+                    <div class="infos">
+                        <label for="roomCode">Entrez le code : </label>
+                        <input type="text" name="roomCode">
+                        <input type="text" id="usernameOnJoin" name="usernameOnJoin" value="" hidden>
+                    </div>
+                    <input type="submit" value="Rejoindre">
+                </form>
+            </div>
+            <div class="create-container">
+                <h1>Créer une partie</h1>
+                <form action="/lobby" method="post">
+                    <div class="infos">
+                        <label for="maxPlayer">Nombre de joueurs :</label>
+                        <input type="number" name="maxPlayer" min="2" max="9">
+                        <label for="nbTurn">Nombre de manches :</label>
+                        <input type="number" name="nbTurn" min="10" max="50">
+                        <input type="text" id="usernameOnCreate" name="usernameOnCreate" hidden>
+                    </div>
+                    <input type="submit" value="Créer">
+                </form>
+            </div>
+        </div>
+        <div class="name-container">
+            <form action="/name" id="name-form" method="post">
+                <label for="username">Pseudo :</label>
+                <input type="text" name="username">
+            </form>
+        </div>
+    </main>
+</body>
+</html>

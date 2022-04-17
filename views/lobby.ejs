@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/styles/lobby.css">
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="/lobby.js"></script>
+    <script>
+        const username = '<%= username %> '
+        const roomCode = '<%= roomCode %> '
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div class="room-part">
+            <div class="room-code">
+                <h1><%= roomCode %></h1>
+                <p>Partagez le code à vos amis ! <br />(Cliquez dessus pour le copier)</p>
+            </div>
+            <div class="waiting-players">
+                <div class="player"></div>
+                <div class="player"></div>
+                <div class="player"></div>
+                <div class="player"></div>
+                <div class="player"></div>
+                <div class="player"></div>
+                <div class="player"></div>
+                <div class="player"></div>
+                <div class="player"></div>
+            </div>
+            <div class="start-button">
+                <button id="start">Start</button>
+            </div>
+        </div>
+        <div class="chat-part">
+            <div class="chat-box" id="chat-box">
+                <div class="incoming-message"><div class="username">Romain :</div><div class="message">Hello !</div></div>
+                <div class="outgoing-message"><div class="message">Hey !</div></div>
+            </div>
+            <div class="send-message">
+                <form action="" id="message-form">
+                    <input type="text" name="message" id="message">
+                    <input type="submit" value="Envoyer">
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

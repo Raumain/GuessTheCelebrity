@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    background-color: #3882c2;
+    font-family: 'Nunito';
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100vw;
+    height: 100vh;
+}
+
+main .title-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+main .lobby-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: auto;
+    /* border: 1px yellow solid; */
+    /* padding: 2rem 0; */
+}
+
+main .lobby-container .join-container, main .lobby-container .create-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 50%;
+    /* border: 1px red solid; */
+}
+
+main .lobby-container .join-container h1, main .lobby-container .create-container h1{
+    font-size: 2.6rem;
+}
+
+main .lobby-container .join-container form, main .lobby-container .create-container form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(194, 56, 93, 0.6);
+    border-radius: .2rem;
+    height: auto;
+    font-size: 1.5rem;
+    padding: 1em;
+}
+
+main .lobby-container .join-container form .infos, main .lobby-container .create-container form .infos{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    height: 50%;
+}
+
+main .lobby-container .join-container form .infos input, main .lobby-container .create-container form .infos input{
+    width: 80%;
+    height: 2rem;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    background: none;
+    border-bottom: 1px black solid;
+    font-family: 'Nunito';
+    margin-bottom: 1rem;
+}
+
+main .lobby-container .join-container form .infos input:focus, main .lobby-container .create-container form .infos input:focus{
+    border-bottom: 1px white solid;
+    transition: 0.2s ease-in;
+    animation-name: border-bottom;
+    animation-duration: 0.6s;
+    animation-iteration-count: 1;
+}
+
+@keyframes border-bottom {
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 80%;
+    }
+}
+
+main .lobby-container .join-container form > input, main .lobby-container .create-container form > input{
+    width: 80%;
+    font-size: 1.1rem;
+    background: rgb(13, 175, 204);
+    border-radius: .2rem;
+    border: none;
+    outline: none;
+    padding: .2rem 0;
+    box-shadow: 0px 2px 1px rgb(0, 0, 0);
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    font-family: 'Nunito';
+}
+
+main .lobby-container .join-container form > input:hover, main .lobby-container .create-container form > input:hover{
+    background: rgba(13, 175, 204, 0.6);
+    transition: 0.1s ease-in-out;
+}
+
+main .lobby-container .join-container form > input:active, main .lobby-container .create-container form > input:active{
+    background: rgba(16, 195, 227, 0.9);
+    margin-top: 1px;
+    box-shadow: 0px 0px 1px rgb(0, 0, 0);
+    transition: 0.1s ease-in-out;
+}
+
+main .name-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+}
+
+main .name-container form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 25%;
+    height: 100%;
+}
+
+main .name-container form label{
+    font-size: 1.5rem;
+}
+
+main .name-container form input{
+    font-family: 'Nunito';
+    font-size: 1.2rem;
+    height: 100%;
+    width: 65%;
+    border-radius: .2rem;
+    border: none;
+    outline: none;
+}
