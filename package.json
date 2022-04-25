@@ -10,10 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "animate.css": "^4.1.1",
     "ejs": "^3.0.2",
     "express": "^4.17.3",
-    "express-ejs-layouts": "^2.5.1",
     "mongoose": "^6.3.0",
+    "path": "^0.12.7",
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1"
   },

@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap');
+
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #64698c #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #64698c;
+    border-radius: 4px;
+    border: none;
+  }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+body{
+    margin: 0;
+    background-color: #061725;
+    font-family: 'Nunito';
+    overflow: hidden;
+}
+
+/* LOADER */
+
+.loader{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #061725;
+  z-index: 5;
+}
+.loader h1{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 1;
+}
+.loading {
+  height: 400px;
+  width: 400px;
+  background: #151825;
+  border-radius: 50%;
+  border: 1px solid #1D9AF2;
+  border-top: 2px solid rgb(20, 220, 255);
+  animation: spinner1 600ms linear infinite;
+}
+
+@keyframes spinner1 {
+    to {
+      transform: rotate(360deg);
+    }
+}

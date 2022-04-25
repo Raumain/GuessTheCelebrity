@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="/styles/answer.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="/answer.js"></script>
+    <script>
+        const username = '<%= username %>'
+        const roomcode = '<%= roomcode %>'
+        const statut = '<%= statut %>'
+        const maxPlayer = '<%= maxPlayer %>'
+        const nbTurn = '<%= nbTurn %>'
+        const nbPlayers = '<%= nbPlayers %>'
+        const id = '<%= id %>'
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <main id="main">
+        <div class="correction">
+            <div class="photos-container">
+                <img src="" id="originale" alt="">
+                <img src="" id="montage" alt="">
+            </div>
+            <div class="correct-name"></div>
+        </div>
+        <div class="answers">
+            
+        </div>
+        <div class="controls">
+            <button class="previous">Retour</button>
+            <button class="next">Suivant</button>
+        </div>
+    </main>
+</body>
+</html>

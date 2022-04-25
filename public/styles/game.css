@@ -1,0 +1,166 @@
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100vw;
+    height: 100vh;
+}
+
+.timer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+}
+
+.timer .cadre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background: none;
+    border-radius: 100%;
+    font-family: 'Dosis';
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    animation: bounce 1s linear infinite;
+}
+
+.timer .bg{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 2px rgba(13, 204, 54, 0.345) dashed;
+    background: rgba(13, 204, 54, 0.345);
+    border-radius: 100%;
+    animation: bg 11s linear infinite;
+    animation-delay: 1.5s;
+    z-index: -1;
+}
+
+
+@keyframes bounce {
+    0%{
+        font-size: 2.5rem;
+    }
+    100%{
+        font-size: 3.2rem;
+    }
+}
+
+@keyframes bg {
+    50%{
+        background: rgba(204, 144, 13, 0.345);
+    }
+    100%{
+        background: rgba(204, 13, 13, 0.345);
+        border: 2px rgba(204, 13, 13, 0.345) dashed;
+        transform: rotateZ(360deg);
+    }
+}
+
+
+.photos{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 60%;
+}
+
+.photos img{
+    width: 300px;
+}
+
+.answer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 15%;
+    /* border: 1px red solid; */
+}
+
+.answer input{
+    width: 300px;
+    height: 50%;
+    border: none;
+    outline: none;
+    font-family: 'Nunito';
+    font-size: 1.3rem;
+    background: rgba(13, 175, 204, 0.126);
+    border-radius: .2rem;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.answer input:focus{
+    border-bottom: 1px white solid;
+    border-radius: .2rem .2rem 0 0;
+    /* animation: border-bottom 0.6s ease-out; */
+}
+
+@keyframes border-bottom {
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 80%;
+    }
+}
+
+.suggests{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    right: 0;
+    margin-right: 1%;
+    width: 300px;
+    height: 500px;
+    border: 2px rgba(13, 175, 204, 0.861) solid;
+    border-radius: .4rem;
+    background: rgba(13, 175, 204, 0.126);
+    overflow-y: auto;
+    box-shadow: 0px 0px 20px rgba(13, 175, 204, 0.619);
+}
+
+.suggests .suggests-title{
+    font-family: 'Dosis';
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    color: white;
+}
+
+.suggests .suggest-name{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    margin-top: .4rem;
+    color: white;
+    padding: .4rem 0;
+    border-bottom: 1px white solid;
+    cursor: default;
+}
+
+.suggests .suggest-name:hover{
+    background: rgba(13, 175, 204, 0.372);
+}
