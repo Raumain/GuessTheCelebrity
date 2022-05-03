@@ -41,8 +41,8 @@ main{
     border: 2px rgba(13, 204, 54, 0.345) dashed;
     background: rgba(13, 204, 54, 0.345);
     border-radius: 100%;
-    animation: bg 11s linear infinite;
-    animation-delay: 1.5s;
+    animation: bg 10s linear infinite;
+    animation-delay: 1s;
     z-index: -1;
 }
 
@@ -146,6 +146,10 @@ main{
     font-size: 1.2rem;
     padding: 10px 0;
     color: white;
+}
+
+.suggests .suggests-title span{
+    font-size: 0.9rem;
 }
 
 .suggests .suggest-name{

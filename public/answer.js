@@ -32,8 +32,6 @@ answerIo.emit('enter-answer', {username: username, roomcode: roomcode, statut: s
 
 
 answerIo.on('wait-for-players', data => {
-    console.log(data.actualConnect)
-    console.log(nbPlayers)
     if(data.actualConnect == nbPlayers){
         answerIo.emit('get-answers', {roomcode: roomcode, nbPlayers: nbPlayers})
     }
@@ -42,14 +40,10 @@ answerIo.on('wait-for-players', data => {
 answerIo.on('answers', data => {
     if(started) return
     started = true
-    console.log(data)
     Object.values(data.allAnswer).forEach(player => {
-        console.log(player)
         playersAnswersTemp[playersAnswersTemp.length] = player
-        console.log(playersAnswersTemp)
     })
     Object.values(playersAnswersTemp[0]).forEach(player => {
-        console.log(player)
         playersAnswers[playersAnswers.length] = player
     })
     Object.values(data.originalPhoto).forEach(orignal => {
@@ -59,13 +53,7 @@ answerIo.on('answers', data => {
         editedPhotosTab = edit.photos
     })
 
-    console.log(playersAnswers)
-    console.log(playersAnswers.length)
     for(let i = 0; i < playersAnswers.length; i++){
-        console.log(playersAnswers[i]['name'])
-        console.log(username)
-        console.log(playersAnswers[i]['id'])
-        console.log(id)
         if(playersAnswers[i]['id'] == id){
             for(let j = 0; j < playersAnswers[i]['answers'].length; j++){
                 if(checkAnswer == '') checkAnswer = ' '
@@ -73,15 +61,11 @@ answerIo.on('answers', data => {
                 var checkCorrectName = replaceAccent(verifNames(originalPhotosTab[j])).toLowerCase()
                 if(checkAnswer == checkCorrectName){
                     score++
-                    console.log(score)
                 }
-                console.log(checkAnswer)
-                console.log(checkCorrectName)
             }
         }
     }
     answerIo.emit('score', {roomcode: roomcode, username: username, score: score, nbPlayers: nbPlayers})
-    console.log(score)
 
     originalPhoto.src = originalPhotosTab[0]
     editedPhoto.src = editedPhotosTab[0]
@@ -103,14 +87,11 @@ previous.style.display = "none"
 next.addEventListener('click', () => {
     if(previous.style.display == "none")
     previous.style.display = "block"
-    console.log(i)
-    console.log(j)
     i++
     if(i == nbPlayers){
         j++
         i = 0
     }
-    console.log(playersAnswers[0]['answers'].length)
     if(j == playersAnswers[0]['answers'].length){
         answerIo.emit('leaderboard', {roomcode: roomcode, nbPlayers: nbPlayers})
         return
@@ -120,8 +101,6 @@ next.addEventListener('click', () => {
     tempI = i
 })
 previous.addEventListener('click', () => {
-    console.log(i)
-    console.log(j)
     i--
     if(i == -1){
     	i = nbPlayers-1
@@ -141,19 +120,15 @@ answerIo.on('previous-photo', data => {
 })
 
 answerIo.on('all-scores', data => {
-    console.log(data.scores)
     var i = 0
     var temp
     Object.values(data.scores).forEach(index => {
-        console.log(index)
         temp = index
     })
     Object.values(temp).forEach(player => {
-        console.log(player)
         allScores[i] = player
         i++
     })
-    console.log(allScores)
     displayLeaderboard()
 })
 
@@ -202,8 +177,6 @@ function replaceAccent(word){
 }
 
 function nextPhoto(i, j, playersAnswers){
-    console.log(i)
-    console.log(j)
     var newText = document.querySelector('.text')
     var newName = document.querySelector('.name')
     newText.innerHTML = playersAnswers[i]['name']
@@ -217,8 +190,6 @@ function nextPhoto(i, j, playersAnswers){
 }
 
 function previousPhoto(i, j, playersAnswers){
-    console.log(i)
-    console.log(j)
     var newText = document.querySelector('.text')
     var newName = document.querySelector('.name')
     newText.innerHTML = playersAnswers[i]['name']
@@ -237,7 +208,6 @@ function displayLeaderboard(){
     var leaderbord = createNewElement('div', main, 'leaderboard', '', 'after')
     let sortedScore = []
     for(let i = 0; i < allScores.length; i++){
-        console.log(allScores[i])
         sortedScore.push([allScores[i].name, allScores[i].score])
     }   
     sortedScore.sort(function(a, b) {return b[1] - a[1]})
@@ -249,10 +219,9 @@ function displayLeaderboard(){
         var scoreDiv = createNewElement('div', playerDiv, 'score', sortedScore[i][1], 'after')
 
     }
-    console.log(delay)
-    setTimeout(() => {
-        document.querySelector('.player').classList.remove('animate__backInLeft')
-        document.querySelector('.player').classList.add('animate__heartBeat')
-    }, delay*1700)
+    // setTimeout(() => {
+    //     document.querySelector('.player').classList.remove('animate__backInLeft')
+    //     document.querySelector('.player').classList.add('animate__heartBeat')
+    // }, delay*1200)
     answerIo.emit('disconnect-everyone')
 }

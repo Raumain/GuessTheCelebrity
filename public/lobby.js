@@ -37,7 +37,6 @@ messageForm.addEventListener('submit', (e) => {
     }
 })
 if(host == 'host'){
-    console.log(host)
     start.addEventListener('click', () => {
         var players = document.querySelectorAll('.player')
         var users = []
@@ -58,13 +57,11 @@ lobby.on('players-length', data => {
 socket.on('send-id', data => {
     id = data.id
 })
-console.log(id)
 socket.emit('include-in-room', {username: username, roomcode: roomCode})
 lobby.emit('lobby-connect', {username: username, roomcode: roomCode, maxPlayer: maxPlayer, nbTurn: nbTurn})
 
 
 lobby.on('game-starting', data => {
-    console.log(data)
     var player = username
     window.location.assign("http://localhost:3000/game?username="+player+"&roomcode="+data.roomcode+"&statut="+host+"&maxPlayer="+maxPlayer+"&nbTurn="+nbTurn+"&nbPlayers="+data.nbPlayers)
 })
@@ -73,8 +70,6 @@ lobby.on('game-starting', data => {
 
 lobby.on('display-name', data => {
     displayName(data.players)
-    console.log(data)
-    console.log('display')
 })
 
 

@@ -33,16 +33,11 @@ game.on('send-id', data => {
 
 game.on('actual-connections', data => {
     actualConnections = data.actualConnect
-    console.log(actualConnections)
 })
 
 if(statut == 'host'){
-    console.log(statut)
     game.emit('choose-photos', {roomcode: roomcode, nbPlayers: nbPlayers})
     var inter = setInterval(() => {
-        console.log('r')
-        console.log(actualConnections)
-        console.log(nbPlayers)
         if(actualConnections == nbPlayers){
             game.emit('get-originals', {roomcode: roomcode})
             clearInterval(inter)
@@ -51,22 +46,17 @@ if(statut == 'host'){
 }
 
 game.on('send-photos', data=>{
-    console.log('send photos')
-    if(started) { console.log('already started') }
+    if(started) {  }
     started = true
     for(let i = 0; i < data.photos.length; i++){
-        allPhotos[i] = '/Images/Acteur/Montages/' + data.photos[i]
+        allPhotos[i] = '/Images/Montages/' + data.photos[i]
     }
     getAllPhotos()
 })
 game.on('chosen-photos', data => {
-    if(started) { console.log('already started') }
+    if(started) {  }
     chosenPhotos = data.chosenPhotos
-    // var bg = document.createElement('div')
-    // bg.className = 'bg'
-    // timer.insertBefore(bg, timer.children[0])
-    // bg.style.animation = 'bg 11s linear infinite'
-    startGame(data.chosenPhotos, 2)
+    startGame(data.chosenPhotos, nbTurn)
 })
 
 
@@ -76,7 +66,7 @@ game.on('send-all-originals', data=>{
 
 game.on('send-originals', data=>{
     for(let i = 0; i < data.photos.length; i++){
-        correctNames[i] = '/Images/Acteur/Originales/' + data.photos[i]
+        correctNames[i] = '/Images/Originales/' + data.photos[i]
     }
 })
 
@@ -95,41 +85,63 @@ game.on('redirect', () => {
 
 
 function getAllPhotos(){
-    if(started) { console.log('already started') }
-    for(let i = 0; i < 2; i++){
+    if(started) { }
+    for(let i = 0; i < nbTurn; i++){
         var chosen = allPhotos[Math.floor(Math.random()*allPhotos.length)]
-        console.log(chosen)
         while(chosenPhotos.includes(chosen)){
-            console.log(chosen)
             chosen = allPhotos[Math.floor(Math.random()*allPhotos.length)]
         }
         chosenPhotos[i] = chosen
     }
-    console.log(chosenPhotos)
     game.emit('send-chosen-photos', {chosenPhotos: chosenPhotos, roomcode: roomcode})
 }
 
 function startGame(chosenPhotos, maxTurn){
     answerInput.addEventListener('input', () => {
         answer = answerInput.value
-        suggests.innerHTML = '<div class="suggests-title">Suggestions :</div>'
+        suggests.innerHTML = '<div class="suggests-title">Suggestions :<br><span>(Cliquez pour séléctionner)</div>'
 	    for(let i = 0; i < allCorrectNames.length; i++){
-        	var prenom = allCorrectNames[i].split('.')[0].replace('_', ' ').split(' ')[0].toLowerCase()
-            var nom = allCorrectNames[i].split('.')[0].replace('_', ' ').split(' ')[1].toLowerCase()
-            var fullname = allCorrectNames[i].split('.')[0].replace('_', ' ').toLowerCase()
-            var fullname2 = allCorrectNames[i].split('.')[0].replace('_', ' ')
+            var mid, midend = ''
+            var end = ''
+            var checkFirst = allCorrectNames[i].split('.')[0].replaceAll('_', ' ').split(' ')[0]
+            var checkMid = allCorrectNames[i].split('.')[0].replaceAll('_', ' ').split(' ')[1]
+            var checkEnd = allCorrectNames[i].split('.')[0].replaceAll('_', ' ').split(' ')[2]
+        	var first = checkFirst.toLowerCase()
+            if(checkMid != undefined){
+                mid = checkMid.toLowerCase()
+                if(checkEnd != undefined){
+                    end = checkEnd.toLowerCase()
+                    midend = mid + ' ' + end;
+                }
+            }
+            var fullname = allCorrectNames[i].split('.')[0].replaceAll('_', ' ').toLowerCase()
+            var fullname2 = allCorrectNames[i].split('.')[0].replaceAll('_', ' ')
             var userInput = replaceAccent(answerInput.value, false).toLowerCase()
-        	if(prenom.startsWith(userInput) || nom.startsWith(userInput) || fullname.startsWith(userInput)){
+        	if(first.startsWith(userInput) || mid.startsWith(userInput) || end.startsWith(userInput) || midend.startsWith(userInput) || fullname.startsWith(userInput)){
                 createNewElement('div', suggests, 'suggest-name', fullname2)
             }
-            if(answerInput.value == '') suggests.innerHTML = '<div class="suggests-title">Suggestions :</div>'
+            if(answerInput.value == '') suggests.innerHTML = '<div class="suggests-title">Suggestions :<br><span>(Cliquez pour séléctionner)</div>'
+        }
+        var allSuggests = document.querySelectorAll('.suggest-name')
+        for(let i = 0; i < allSuggests.length; i++){
+            allSuggests[i].addEventListener('click', () => {
+                answerInput.value = allSuggests[i].innerHTML
+                answer = allSuggests[i].innerHTML
+            })
         }
     })
     
     var decount = 10
     var i = 0
-    var turn = 0  
+    var turn = 0 
+    var check = true 
     photo.src = chosenPhotos[turn]  
+    if(check){
+        var bg = document.createElement('div')
+        bg.className = 'bg'
+        timer.insertBefore(bg, timer.children[0])
+        check = false
+    }
     var inter = setInterval(()=>{
         timerDiv.innerHTML = decount-i
         if(timerDiv.innerHTML == '0'){
@@ -151,13 +163,14 @@ function startGame(chosenPhotos, maxTurn){
     },1000)
     document.querySelector('.loader').style.display = 'none'
 
+
 }
 
 
 function verifNames(name){
     for(let i = 0; i < name.length; i++){
         const splitSlash = name.split('/')
-        var n = splitSlash[splitSlash.length-1].replace('_', ' ').split('.')[0]
+        var n = splitSlash[splitSlash.length-1].split('.')[0].replaceAll('_', ' ')
         n = replaceAccent(n, true).toLowerCase()
     }
     return n
@@ -173,12 +186,7 @@ function endGame(answers){
         else{
             correction[i] = 'incorrect'
         }
-        console.log(answer)
-        console.log(name)
-        console.log(correction)
     }
-    console.log(chosenPhotos)
-    console.log(correctNames)
     game.emit('send-score', {username: username, roomcode: roomcode, score: score, answers: answers, correction: correction, id: id, chosenPhotos: chosenPhotos, correctNames: correctNames, nbPlayers: nbPlayers})
 }
 

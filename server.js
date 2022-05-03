@@ -29,7 +29,7 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, family: 4})
 const db = mongoose.connection;
 db.on('error', error => console.error(error));
-db.once('open', () => console.log("Connected to Mongoose !"));
+// db.once('open', () => console.log("Connected to Mongoose !"));
 
 
 const isEmpty = str => !str.trim().length;
@@ -157,15 +157,14 @@ server.listen(3000)
 
 
 var rooms = {}
-io.on('connection', socket => { 
-  console.log('Connecté !')
-})
+// io.on('connection', socket => { 
+//   console.log('Connecté !')
+// })
  
 
 const lobby = io.of('/lobby')
 var nbPlayers = []
 lobby.on('connection', socket => {
-  console.log("Lobby Connect")
 
   socket.on('lobby-connect', async data =>{
     nbPlayers.push(data.username)
@@ -208,7 +207,6 @@ lobby.on('connection', socket => {
   })
   
   socket.on('disconnecting', () => {
-    console.log('Disconnected')
     nbPlayers = []
     disconnection(socket, socket.rooms, '', lobby)
   })
@@ -225,7 +223,6 @@ const game = io.of('/game')
 const answerIo = io.of('/answer')
 var gameId = []
 game.on('connection', socket => {
-  console.log('Game Connect')
 
   socket.on('enter-game', data =>{
     socket.join(data.roomcode)
@@ -240,7 +237,6 @@ game.on('connection', socket => {
         gameId.push(socket.id+' '+player._id)
         game.to(socket.id).emit('send-id', {id: JSON.stringify(player._id).split('"')[1]})
         var actualConnect = JSON.stringify(Object.keys(rooms[data.roomcode].users).length)
-        console.log(actualConnect)
         game.to(data.roomcode).emit('actual-connections', {actualConnect: actualConnect})
       })
     })
@@ -248,16 +244,14 @@ game.on('connection', socket => {
   })
 
   socket.on('choose-photos', data => {
-    const MontagesFolder = './Images/Acteur/Montages';
+    const MontagesFolder = './Images/Montages';
     const allPhotos = []
     fs.readdir(MontagesFolder, (err, files) => {
       files.forEach(file => {
         allPhotos[allPhotos.length] = file
       });
       var inter = setInterval(() => {
-        console.log('t')
         if(Object.keys(rooms[data.roomcode].users).length == data.nbPlayers){
-          console.log('ok')
           game.to(socket.id).emit('send-photos', {photos: allPhotos})
           clearInterval(inter)
         }
@@ -268,7 +262,7 @@ game.on('connection', socket => {
   })
   
   socket.on('get-originals', data => {
-    const OrginalFolder = './Images/Acteur/Originales';
+    const OrginalFolder = './Images/Originales';
     var allOriginals = []
     fs.readdir(OrginalFolder, async (err, files) => {
       files.forEach(file => {
@@ -280,13 +274,10 @@ game.on('connection', socket => {
 
   socket.on('save-current-answer', async data => {
     var existingAnswer = [data.answer]
-    console.log(existingAnswer)
     const answer = await Answer.find({playerId: data.id})
     if(answer.length != 0){
       existingAnswer = answer[0].answers
-      console.log(existingAnswer)
       existingAnswer[existingAnswer.length] = data.answer
-      console.log(existingAnswer)
       await Answer.findOneAndUpdate({playerId: data.id}, {answers: existingAnswer}, {new: true})
     }
     else{
@@ -309,7 +300,7 @@ game.on('connection', socket => {
       }
     }
     verified[verified.length] = data.id
-    const OrginalFolder = './Images/Acteur/Originales';
+    const OrginalFolder = './Images/Originales';
     const allOriginals = []
     fs.readdir(OrginalFolder, async (err, files) => {
       files.forEach(file => {
@@ -341,9 +332,6 @@ game.on('connection', socket => {
     editedPhoto[data.roomcode].photos = []
     originalPhoto[data.roomcode].photos = data.correctNames
     editedPhoto[data.roomcode].photos = data.chosenPhotos
-    console.log(originalPhoto)
-    console.log(editedPhoto)
-    console.log(playerAnswers[data.roomcode].users[socket.id].correction)
     var actualConnect = JSON.stringify(Object.keys(playerAnswers[data.roomcode].users).length)
     if(actualConnect == data.nbPlayers){
       game.to(data.roomcode).emit('redirect')
@@ -351,7 +339,6 @@ game.on('connection', socket => {
   })
 
   socket.on('disconnecting', () => {
-    console.log('Disconnected ' + socket.id +  ' from ' + game.name)
     for(let i = 0; i < gameId.length; i++){
       var s = gameId[i].split(' ')[0]
       var id = gameId[i].split(' ')[1]
@@ -365,15 +352,12 @@ game.on('connection', socket => {
 const scores = {}
 const ids = []
 answerIo.on('connection', socket => {
-  console.log('Answer Connect ' + socket.id)
   
   socket.on('enter-answer', async data => {
     socket.join(data.roomcode)
     rooms[data.roomcode].users[socket.id] = data.username
     scores[data.roomcode] = {users: {}}
     ids.push(socket.id+' '+data.id)
-    console.log('ids : ')
-    console.log(ids)
     saveRoom(data.roomcode, data.maxPlayer, data.nbTurn)
     .then(room => {
       savePlayer(data.username, room, data.statut, socket)
@@ -397,7 +381,6 @@ answerIo.on('connection', socket => {
   })
 
   socket.on('score', data => {
-    console.log(data.score)
     scores[data.roomcode].users[socket.id] = {
       'name' : data.username,
       'score' : data.score
@@ -418,7 +401,6 @@ answerIo.on('connection', socket => {
   })
 
   socket.on('disconnecting', () => {
-    console.log('Disconnected')
     for(let i = 0; i < ids.length; i++){
       var s = ids[i].split(' ')[0]
       var id = ids[i].split(' ')[1]
@@ -460,15 +442,13 @@ async function deleteUser(user, roomcode, uSocket, id, namespace){
   try{
     var player = await Player.find({name: user, socketId: uSocket})
     var answers = await Answer.find({playerId: id})
-    console.log(answers)
-    console.log(id)
     if(answers.length != 0)
     await answers[0].deleteOne()
     if(player.length != 0)
     await player[0].deleteOne()
   }
-  catch(err){
-    console.log(err)
+  catch{
+    return
   }
   const room = await Room.find({code: roomcode})
   if(room.length == 0) return
@@ -508,7 +488,6 @@ async function savePlayer(username, room, statut, socket){
     return player
   }
   catch{
-    console.log("Could not save player")
     return "Could not save player "+username
   }
 }
