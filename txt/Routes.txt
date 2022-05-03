@@ -1,9 +1,0 @@
-- GET : /					#index
-- GET : /lobby/:id			#aller dans un lobby unique
-- GET : /game/:id			#aller dans une game unique
-- GET : /result/:id			#aller dans une room de fin unique
-
-- POST : /lobby			#créer un lobby
-(- POST : /game			#créer une game)
-	
-:id = Code de la partie

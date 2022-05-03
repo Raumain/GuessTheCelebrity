@@ -32,6 +32,8 @@ db.on('error', error => console.error(error));
 // db.once('open', () => console.log("Connected to Mongoose !"));
 
 
+
+
 const isEmpty = str => !str.trim().length;
 
 
