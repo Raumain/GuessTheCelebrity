@@ -1,4 +1,4 @@
-const socket = io('https://guess-the-celebrity1.herokuapp.com')
+const socket = io('https://courageous-cobbler-2b76e5.netlify.app')
 const lobby = io('/lobby')
 
 var messageContainer = document.getElementById('chat-box')
@@ -15,7 +15,7 @@ var nbPlayers
 console.info(performance.getEntriesByType("navigation")[0].type );
 if (performance.getEntriesByType("navigation")[0].type ==  'reload' || performance.getEntriesByType("navigation")[0].type ==  'back_forward') {
   console.info( "This page is reloaded" );
-  window.location.assign('https://guess-the-celebrity1.herokuapp.com')
+  window.location.assign('https://courageous-cobbler-2b76e5.netlify.app')
 } 
 const isEmpty = str => !str.trim().length;
 
@@ -63,7 +63,7 @@ lobby.emit('lobby-connect', {username: username, roomcode: roomCode, maxPlayer: 
 
 lobby.on('game-starting', data => {
     var player = username
-    window.location.assign("https://guess-the-celebrity1.herokuapp.com/game?username="+player+"&roomcode="+data.roomcode+"&statut="+host+"&maxPlayer="+maxPlayer+"&nbTurn="+nbTurn+"&nbPlayers="+data.nbPlayers)
+    window.location.assign("https://courageous-cobbler-2b76e5.netlify.app/game?username="+player+"&roomcode="+data.roomcode+"&statut="+host+"&maxPlayer="+maxPlayer+"&nbTurn="+nbTurn+"&nbPlayers="+data.nbPlayers)
 })
 
 

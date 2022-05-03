@@ -1,4 +1,4 @@
-const socket = io('https://guess-the-celebrity1.herokuapp.com')
+const socket = io('https://courageous-cobbler-2b76e5.netlify.app')
 
 const joinForm = document.getElementById('join-form')
 const createForm = document.getElementById('create-form')

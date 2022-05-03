@@ -10,7 +10,7 @@ const server = require('http').Server(app)
 const url = require('url')
 const io = require('socket.io')(server, {
   cors: {
-    origin: ["https://guess-the-celebrity1.herokuapp.com"]
+    origin: ["https://courageous-cobbler-2b76e5.netlify.app"]
   }
 })
 

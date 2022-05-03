@@ -1,4 +1,4 @@
-const socket = io('https://guess-the-celebrity1.herokuapp.com')
+const socket = io('https://courageous-cobbler-2b76e5.netlify.app')
 const answerIo = io('/answer')
 
 
@@ -24,7 +24,7 @@ if(statut != 'host'){
 
 if (performance.getEntriesByType("navigation")[0].type ==  'reload' || performance.getEntriesByType("navigation")[0].type ==  'back_forward') {
     console.info( "This page is reloaded" );
-    window.location.assign('https://guess-the-celebrity1.herokuapp.com')
+    window.location.assign('https://courageous-cobbler-2b76e5.netlify.app')
   }
 
 answerIo.emit('enter-answer', {username: username, roomcode: roomcode, statut: statut, maxPlayer: maxPlayer, nbTurn: nbTurn, nbPlayers: nbPlayers, id: id})
