@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000')
+const socket = io('https://guess-the-celebrity1.herokuapp.com')
 const game = io('/game')
 
 
@@ -22,7 +22,7 @@ var correction = []
 
 if (performance.getEntriesByType("navigation")[0].type ==  'reload' || performance.getEntriesByType("navigation")[0].type ==  'back_forward') {
     console.info( "This page is reloaded" );
-    window.location.assign('http://localhost:3000')
+    window.location.assign('https://guess-the-celebrity1.herokuapp.com')
   } 
 
 game.emit('enter-game', {username: username, roomcode: roomcode, statut: statut, maxPlayer: maxPlayer, nbTurn: nbTurn})
@@ -75,7 +75,7 @@ game.on('send-answers', data => {
 })
 
 game.on('redirect', () => {
-    window.location.assign('http://localhost:3000/answers?id='+id+'&username='+username+"&roomcode="+roomcode+"&statut="+statut+"&maxPlayer="+maxPlayer+"&nbTurn="+nbTurn+"&nbPlayers="+nbPlayers)
+    window.location.assign('https://guess-the-celebrity1.herokuapp.com/answers?id='+id+'&username='+username+"&roomcode="+roomcode+"&statut="+statut+"&maxPlayer="+maxPlayer+"&nbTurn="+nbTurn+"&nbPlayers="+nbPlayers)
 })
 
 

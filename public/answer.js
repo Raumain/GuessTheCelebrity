@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000')
+const socket = io('https://guess-the-celebrity1.herokuapp.com')
 const answerIo = io('/answer')
 
 
@@ -24,7 +24,7 @@ if(statut != 'host'){
 
 if (performance.getEntriesByType("navigation")[0].type ==  'reload' || performance.getEntriesByType("navigation")[0].type ==  'back_forward') {
     console.info( "This page is reloaded" );
-    window.location.assign('http://localhost:3000')
+    window.location.assign('https://guess-the-celebrity1.herokuapp.com')
   }
 
 answerIo.emit('enter-answer', {username: username, roomcode: roomcode, statut: statut, maxPlayer: maxPlayer, nbTurn: nbTurn, nbPlayers: nbPlayers, id: id})

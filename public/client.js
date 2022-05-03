@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000')
+const socket = io('https://guess-the-celebrity1.herokuapp.com')
 
 const joinForm = document.getElementById('join-form')
 const createForm = document.getElementById('create-form')

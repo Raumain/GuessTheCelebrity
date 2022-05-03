@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000')
+const socket = io('https://guess-the-celebrity1.herokuapp.com')
 const lobby = io('/lobby')
 
 var messageContainer = document.getElementById('chat-box')
@@ -15,7 +15,7 @@ var nbPlayers
 console.info(performance.getEntriesByType("navigation")[0].type );
 if (performance.getEntriesByType("navigation")[0].type ==  'reload' || performance.getEntriesByType("navigation")[0].type ==  'back_forward') {
   console.info( "This page is reloaded" );
-  window.location.assign('http://localhost:3000')
+  window.location.assign('https://guess-the-celebrity1.herokuapp.com')
 } 
 const isEmpty = str => !str.trim().length;
 
@@ -63,7 +63,7 @@ lobby.emit('lobby-connect', {username: username, roomcode: roomCode, maxPlayer: 
 
 lobby.on('game-starting', data => {
     var player = username
-    window.location.assign("http://localhost:3000/game?username="+player+"&roomcode="+data.roomcode+"&statut="+host+"&maxPlayer="+maxPlayer+"&nbTurn="+nbTurn+"&nbPlayers="+data.nbPlayers)
+    window.location.assign("https://guess-the-celebrity1.herokuapp.com/game?username="+player+"&roomcode="+data.roomcode+"&statut="+host+"&maxPlayer="+maxPlayer+"&nbTurn="+nbTurn+"&nbPlayers="+data.nbPlayers)
 })
 
 
