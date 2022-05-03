@@ -39,7 +39,7 @@ const isEmpty = str => !str.trim().length;
 
 
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
   res.render('index')
 })
 
